@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sparkles, ArrowUpRight } from "lucide-react";
 import { BlobBackground } from "@/components/BlobBackground";
 
@@ -33,20 +32,11 @@ const shapeClass: Record<Project["shape"], string> = {
   diamond: "rotate-45 rounded-2xl",
 };
 
-export const Route = createFileRoute("/portfolio")({
-  head: () => ({
-    meta: [
-      { title: "Portfolio — Bhagyashri Khobragade" },
-      { name: "description", content: "Selected work by Bhagyashri Khobragade — branding, illustration, editorial and social design." },
-      { property: "og:title", content: "Portfolio — Bhagyashri Khobragade" },
-      { property: "og:description", content: "Selected design work: branding, illustration, social and print." },
-    ],
-  }),
-  component: PortfolioPage,
-});
-
-function PortfolioPage() {
+export default function PortfolioPage() {
   const [active, setActive] = useState<Category>("All");
+  useEffect(() => {
+    document.title = "Portfolio — Bhagyashri Khobragade";
+  }, []);
   const filtered = active === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
 
   return (
@@ -63,7 +53,6 @@ function PortfolioPage() {
           A rotating snapshot of recent projects. Click through, or DM <strong>@the_art_wired</strong> for the full case studies.
         </p>
 
-        {/* Filter */}
         <div className="mt-8 flex flex-wrap gap-2">
           {CATEGORIES.map((c) => (
             <button
@@ -80,7 +69,6 @@ function PortfolioPage() {
           ))}
         </div>
 
-        {/* Grid */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p, i) => (
             <article

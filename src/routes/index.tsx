@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { ArrowRight, Instagram, Sparkles } from "lucide-react";
@@ -8,21 +8,10 @@ import { INSTAGRAM_URL } from "@/components/Layout";
 const ROTATING = ["Visual Storyteller", "Brand Designer", "Type Lover", "Art Wired"];
 const MARQUEE = ["Branding", "★", "Illustration", "★", "Typography", "★", "Print", "★", "Social", "★", "Editorial", "★"];
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Bhagyashri Khobragade — Graphic Designer" },
-      { name: "description", content: "Digital visiting card of Bhagyashri Khobragade — graphic designer crafting bold brands, illustrations and visual stories. Follow @the_art_wired." },
-      { property: "og:title", content: "Bhagyashri Khobragade — Graphic Designer" },
-      { property: "og:description", content: "Bold visual storytelling, branding & illustration. The digital card of @the_art_wired." },
-    ],
-  }),
-  component: HomePage,
-});
-
-function HomePage() {
+export default function HomePage() {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
+    document.title = "Bhagyashri Khobragade — Graphic Designer";
     const t = setInterval(() => setIdx((i) => (i + 1) % ROTATING.length), 2200);
     return () => clearInterval(t);
   }, []);
@@ -84,7 +73,6 @@ function HomePage() {
             </div>
           </div>
 
-          {/* QR card */}
           <div className="relative mx-auto w-full max-w-sm">
             <div className="absolute -inset-3 rotate-3 rounded-3xl bg-gradient-art opacity-90" />
             <div className="relative -rotate-2 rounded-3xl border-2 border-ink bg-[var(--cream)] p-6 shadow-bold">
@@ -116,7 +104,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Marquee */}
       <section className="border-y-2 border-ink bg-[var(--ink)] py-4 text-[var(--cream)]">
         <div className="flex overflow-hidden">
           <div className="animate-marquee flex shrink-0 gap-8 whitespace-nowrap pr-8 font-display text-2xl font-bold uppercase">

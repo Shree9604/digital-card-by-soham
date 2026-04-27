@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "@tanstack/react-router";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Instagram } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { Toaster } from "@/components/ui/sonner";

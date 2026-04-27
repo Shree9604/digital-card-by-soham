@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
@@ -14,22 +13,14 @@ const contactSchema = z.object({
   message: z.string().trim().min(5, "Message is too short").max(1000),
 });
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Bhagyashri Khobragade" },
-      { name: "description", content: "Get in touch with Bhagyashri Khobragade for branding, illustration and design projects. DM @the_art_wired or send a message." },
-      { property: "og:title", content: "Let's create together — Bhagyashri Khobragade" },
-      { property: "og:description", content: "Reach out for design collaborations, briefs and brand projects." },
-    ],
-  }),
-  component: ContactPage,
-});
-
-function ContactPage() {
+export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    document.title = "Contact — Bhagyashri Khobragade";
+  }, []);
 
   const onChange = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -75,7 +66,6 @@ function ContactPage() {
         </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
-          {/* Form */}
           <form
             onSubmit={onSubmit}
             className="rounded-3xl border-2 border-ink bg-[var(--cream)] p-6 shadow-bold md:p-8"
@@ -133,7 +123,6 @@ function ContactPage() {
             </button>
           </form>
 
-          {/* QR + Instagram CTA */}
           <aside className="space-y-6">
             <div className="relative">
               <div className="absolute -inset-3 -rotate-3 rounded-3xl bg-gradient-art" />
