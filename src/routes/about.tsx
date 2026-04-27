@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Palette, Pen, Type, Share2, Printer, Monitor, Sparkles } from "lucide-react";
 import { BlobBackground, Squiggle } from "@/components/BlobBackground";
 
@@ -20,19 +20,10 @@ const OBSESSED = [
   "Color clashing on purpose",
 ];
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Bhagyashri Khobragade" },
-      { name: "description", content: "About Bhagyashri Khobragade — graphic designer, visual storyteller and the artist behind @the_art_wired." },
-      { property: "og:title", content: "About Bhagyashri Khobragade" },
-      { property: "og:description", content: "Designer, illustrator, type lover. Get to know the artist behind @the_art_wired." },
-    ],
-  }),
-  component: AboutPage,
-});
-
-function AboutPage() {
+export default function AboutPage() {
+  useEffect(() => {
+    document.title = "About — Bhagyashri Khobragade";
+  }, []);
   return (
     <div className="relative">
       <BlobBackground />
@@ -42,7 +33,6 @@ function AboutPage() {
         </span>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          {/* Portrait placeholder */}
           <div className="relative">
             <div className="absolute -inset-3 -rotate-3 rounded-3xl bg-gradient-art" />
             <div className="relative aspect-[4/5] rotate-2 overflow-hidden rounded-3xl border-2 border-ink bg-[var(--ink)] shadow-bold">
@@ -79,7 +69,6 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Skills grid */}
         <div className="mt-20">
           <h2 className="font-display text-4xl font-black md:text-5xl">What I do</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -101,7 +90,6 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Currently obsessed */}
         <div className="mt-20 rounded-3xl border-2 border-ink bg-[var(--ink)] p-8 text-[var(--cream)] shadow-bold md:p-12">
           <h2 className="font-display text-3xl font-black md:text-4xl">
             Currently obsessed with
